@@ -1,19 +1,15 @@
 //Declaración de variables
 
 var nombreUsuario = iniciarSesion();
-
 var saldoCuenta = 10000;
-
 var limiteExtraccion = 3000;
 
 function sumarDinero(monto){
-    saldoCuenta = saldoCuenta + monto;
-    console.log(saldoCuenta);
+    saldoCuenta += monto;
 }
 
 function restarDinero(monto){
-    saldoCuenta = saldoCuenta - monto;
-    console.log(saldoCuenta);
+    saldoCuenta -= monto;
 }
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
@@ -23,27 +19,26 @@ window.onload = function() {
     actualizarLimiteEnPantalla();
 }
 
-
-//Funciones que tenes que completar
+//TODO
 function cambiarLimiteDeExtraccion() {
-    var limiteExtraccionNuevo = prompt("Ingrese el nuevo límite de extracción:");
+    var nuevoLimiteExtraccion = parseInt(prompt("Ingrese el nuevo límite de extracción:"));
 
-    if (limiteExtraccionNuevo === null) {
+    if (nuevoLimiteExtraccion === null) {
         return;
     }
 
-    if (limiteExtraccionNuevo == '') {
+    if (nuevoLimiteExtraccion == '') {
         alert("Debe ingresar un número positivo a extraer.");
         return;
     }
 
-    var limiteExtraccionNuevoNum = parseInt(limiteExtraccionNuevo);
-    if (limiteExtraccionNuevoNum < 0) {
+    var nvoLimExt = parseInt(nuevoLimiteExtraccion);
+    if (nvoLimExt < 0) {
         alert("El límite de extracción debe ser un número positivo.");
         return;   
     }
 
-    limiteExtraccion = limiteExtraccionNuevoNum;
+    limiteExtraccion = nvoLimExt;
     actualizarLimiteEnPantalla();
     alert("El límite de extracción se actualizó. Ahora es de: $" + limiteExtraccion + ".");
 }
@@ -111,34 +106,34 @@ function transferirDinero() {
 
 function iniciarSesion() {
     var flag = -1;
+
     while(flag == -1) {
         var nombreUsu = prompt("Ingrese su nombre.");
         flag = 1;
 
-        if (nombreUsu === null) {
+        if (nombreUsu.length === 0 || nombreUsu.replace(/\s/g,"") == "") {
+            alert("El campo no puede estar vacío.");
             flag = -1;
         }
 
-        if (nombreUsu == '') {
-            alert("Debe ingresar su nombre.");
-            flag = -1;
+        // TODO
+        // if (nombreUsu === !isNaN(nombreUsu)) {
+        //     alert("El campo no puede contener números.");
+        //     flag = -1;
         }
-    }
-
-    
 
     return nombreUsu;
 }
 
 //Funciones que actualizan el valor de las variables en el HTML
 function cargarNombreEnPantalla() {
-    document.getElementById("nombre").innerHTML = "Bienvenido/a " + nombreUsuario;
+    document.getElementById("nombre").innerHTML = `Bienvenido/a ${nombreUsuario}`;
 }
 
 function actualizarSaldoEnPantalla() {
-    document.getElementById("saldo-cuenta").innerHTML = "$" + saldoCuenta;
+    document.getElementById("saldo-cuenta").innerHTML = `$${saldoCuenta}`;
 }
 
 function actualizarLimiteEnPantalla() {
-    document.getElementById("limite-extraccion").innerHTML = "Tu límite de extracción es: $" + limiteExtraccion;
+    document.getElementById("limite-extraccion").innerHTML = `Tu nuevo límite de extracción es $${limiteExtraccion}`;
 }
